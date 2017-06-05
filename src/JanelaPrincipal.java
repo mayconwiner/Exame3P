@@ -16,7 +16,7 @@ class Monitor extends Thread {
 
 	public void run() {
 		while (true) {
-			if (JanelaPrincipal.temperatura > 450) {
+			if (JanelaPrincipal.temperatura > 320) {
 				JOptionPane.showMessageDialog(null, "Alerta" + " : " + JanelaPrincipal.temperatura + " De Temperatura");
 				System.out.println("Alerta Disparado");
 			}
@@ -31,7 +31,7 @@ class Reator implements Runnable {
 		sorteia = new Random();
 		while (true) {
 			JanelaPrincipal.temperatura = 50 + sorteia.nextInt(450);
-			JanelaPrincipal.vrRotulo.setText(JanelaPrincipal.temperatura + "");
+			JanelaPrincipal.vrRotulo.setText(JanelaPrincipal.temperatura + "" + "º");
 			try {
 				Thread.sleep(1000);
 			} catch (Exception e) {

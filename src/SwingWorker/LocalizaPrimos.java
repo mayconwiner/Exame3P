@@ -2,6 +2,8 @@
 //git push -u origin master
 package SwingWorker;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -16,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.border.Border;
 
 public class LocalizaPrimos extends JFrame {
 	private final JTextField highstPrimeJTextField = new JTextField();
@@ -37,7 +40,7 @@ public class LocalizaPrimos extends JFrame {
 		northJPanel.add(highstPrimeJTextField);
 		getPrimesJbutton.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				progressJProgressBar.setValue(0);// redefine JProgressBar
 				displayPrimesJtextArea.setText("");// limpa JTextArea
 				statusJlabel.setText("");// limpa JLabel
@@ -52,7 +55,7 @@ public class LocalizaPrimos extends JFrame {
 					return;
 				}
 				// constroi um novo objeto LocalizaPrimos
-				calculator = new LocalizaPrimos(number, displayPrimesJtextArea, statusJlabel, getPrimesJbutton,
+				calculator = new CalcularPrimos(number, displayPrimesJtextArea, statusJlabel, getPrimesJbutton,
 						cancelJButton);
 				// ouve alterações de propriedade na barra de progresso
 				calculator.addPropertyChangeListener(new PropertyChangeListener() {
@@ -65,27 +68,47 @@ public class LocalizaPrimos extends JFrame {
 							progressJProgressBar.setValue(newValue);
 						}
 					}
-				}
-				);
+				});
 				getPrimesJbutton.setEnabled(false);
 				cancelJButton.setEnabled(true);
-				
-				calculator.execute(); //executa o objeto LocalizaPrimos
-				
+
+				calculator.execute(); // executa o objeto LocalizaPrimos
+
 			}
-		}
-		);
+		});
 		northJPanel.add(getPrimesJbutton);
-		//adiciona um JList rolavel para exibir os resultados do calculo 
-		displayPrimesJtextArea.setEnabled(false);
-		add(new JScrollPane(displayPrimesJtextArea,
-				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+		// adiciona um JList rolavel para exibir os resultados do calculo
+		displayPrimesJtextArea.setEditable(false);
+		add(new JScrollPane(displayPrimesJtextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER));
-		
+
+		// inicializa um painel para exibir cancelJButton
+		// progressJProgressBar e statusJLabel
+		JPanel southJPanel = new JPanel(new GridLayout(1, 3, 10, 10));
+		cancelJButton.setEnabled(false);
+		cancelJButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				calculator.cancel(true); // cancela o calculo
+
+			}
+		});
+		southJPanel.add(cancelJButton);
+		progressJProgressBar.setStringPainted(true);
+		southJPanel.add(progressJProgressBar);
+		southJPanel.add(statusJlabel);
+
+		add(northJPanel, BorderLayout.NORTH);
+		add(southJPanel, BorderLayout.SOUTH);
+		setSize(350, 300);
+		setVisible(true);
 
 	}
 
 	public static void main(String[] args) {
+		LocalizaPrimos aplicacao = new LocalizaPrimos();
+		aplicacao.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	}
 
