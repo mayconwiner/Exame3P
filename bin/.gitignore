@@ -1,10 +1,5 @@
-/BlockingBuffer/
-/JanelaPrincipal.class
-/Monitor.class
-/Principal.class
-/Reator.class
-/SimpleArr/
-/SwingWorker/
-/Task/
-/simulaProcesso.class
 /Fibonacci/
+/Servidor.class
+/Cliente.class
+/ClienteThread.class
+/ChatClienteServidor/

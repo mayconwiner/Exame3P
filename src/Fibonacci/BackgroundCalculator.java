@@ -18,7 +18,7 @@ public class BackgroundCalculator extends SwingWorker<Long, Object> {
 	// codigo demorado a ser executado em uma thread trabalhadora
 	public Long doInBackground() {
 		long fib = fibonacci(n);
-		return String.valueOf(fib);
+		return Long.valueOf(fib);
 	}
 
 	// codigo a executar na thread de despacho de eventos quando doInBackground
@@ -41,5 +41,5 @@ public class BackgroundCalculator extends SwingWorker<Long, Object> {
 		else
 			return fibonacci(numero = 1) + fibonacci(numero - 2);
 	}
-
+//falta terminar essa classe e outra 
 }
